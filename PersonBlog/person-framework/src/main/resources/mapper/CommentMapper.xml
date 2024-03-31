@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xin.blog.mapper.CommentMapper">
+
+    <select id="countMonthlyData" resultType="java.util.Map">
+        SELECT
+            COUNT(*) AS total,
+            MONTH(create_time) AS month
+        FROM
+            comment
+        WHERE
+            status = ${status} and
+            MONTH(create_time) BETWEEN 1 AND 12 and
+            YEAR(create_time) = ${year}
+        GROUP BY
+            MONTH(create_time)
+        order by MONTH(create_time)
+    </select>
+</mapper>
